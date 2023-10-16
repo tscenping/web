@@ -1,0 +1,44 @@
+version: '3.8'
+services:
+  web:
+    container_name: web
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - '3000:3000'
+    volumes:
+      - ./src:/app/src
+    depends_on:
+      - web-db
+
+  web-db:
+    container_name: postgres
+    image: postgres:latest
+    environment:
+      - POSTGRES_USER=${WEB_DB_USER}
+      - POSTGRES_PASSWORD=${WEB_DB_PASSWORD}
+      - POSTGRES_NAME=${WEB_DB_NAME}
+    ports:
+      - '5432:5432'
+    volumes:
+      - /${HOME}/data/postgres:/var/lib/postgresql/data
+    networks:
+      - postgres
+    restart: always
+
+  api-pgadmin:
+    container_name: web-pgadmin4
+    image: dpage/pgadmin4
+    environment:
+      - PGADMIN_DEFAULT_EMAIL=${WEB_PGADMIN_EMAIL}
+      - PGADMIN_DEFAULT_PASSWORD=${WEB_PGADMIN_PASSWORD}
+    ports:
+      - '8080:80'
+    depends_on:
+      - web-db
+    restart: always
+
+networks:
+  postgres:
+    driver: bridge

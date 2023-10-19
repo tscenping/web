@@ -1,0 +1,3 @@
+[submodule "web-config"]
+	path = web-config
+	url = git@github.com:tscenping/web-config.git

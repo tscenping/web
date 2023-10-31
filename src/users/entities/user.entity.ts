@@ -30,11 +30,11 @@ export class User extends BaseEntity {
   @IsBoolean()
   isMfaEnabled: boolean;
 
-  @Column({ default: 1000 }) // TODO: 기본점수 검사
+  @Column({ default: 1200 })
   @IsNumber()
   ladderScore: number;
 
-  @Column({ default: 1000 })
+  @Column({ default: 1200 })
   @IsNumber()
   ladderMaxScore: number;
 
@@ -63,7 +63,7 @@ export class User extends BaseEntity {
   chatSocketId: string;
 
   @Column({ default: null })
-  @Length(1, 80)
+  @Length(1, 20)
   @IsString()
   @IsOptional()
   @Matches(/^[ㄱ-ㅎ가-힣a-zA-Z0-9]+$/)

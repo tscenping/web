@@ -1,4 +1,6 @@
-FROM node:latest
+FROM --platform=linux/arm64 node:latest AS node-arm64-build
+
+FROM node-arm64-build
 
 WORKDIR /app
 
